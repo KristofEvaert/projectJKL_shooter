@@ -28,6 +28,20 @@ public class Gun : Node2D
         this.Rotation = rotation;
         Position = position;
 
+        if (Input.IsActionJustPressed("shoot"))
+        {
+            this.Shoot();
+        }
+
     }
+
+    private void Shoot()
+    {
+        var speed = 100;
+
+        var velocityVec = new Vector2(100, 0).Rotated(Rotation);
+
+    }
+
 
 }
