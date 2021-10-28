@@ -7,6 +7,9 @@
 node_modules/
 dist/
 
+#vscode
+.vscode
+
 # godot
 .mono/
 .import/
