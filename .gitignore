@@ -7,6 +7,11 @@
 node_modules/
 dist/
 
+# godot
+.mono/
+.import/
+*.import
+
 # Compiled Java class files
 *.class
 
@@ -48,3 +53,6 @@ Thumbs.db
 *.mov
 *.wmv
 
+
+.fake
+.ionide
