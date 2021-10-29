@@ -9,8 +9,9 @@
             border-radius: 2em;
             height: 30em;
             width: 50em;
-            border: solid blue 0.2em;
+            border: solid gray 0.1em;
         }
+        /* force border-box */
         *, *:after, *:before {
             box-sizing: inherit;
         }
@@ -25,6 +26,7 @@
     <br/>
     <embed id="gameFrame" src="about:blank" />
     <script type="text/javascript">
+        // changes the source of the iframe, loading the game
         function loadGame()
         {
             let embed = document.getElementById("gameFrame");
