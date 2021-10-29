@@ -1,10 +1,35 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
+    <style>
+        #gameFrame {
+            border-radius: 2em;
+            height: 30em;
+            width: 50em;
+            border: solid blue 0.2em;
+        }
+        *, *:after, *:before {
+            box-sizing: inherit;
+        }
+        body {
+            box-sizing: border-box;
+        }
+
+    </style>
 </head>
 <body>
-
+    <button onclick="loadGame()">Play Game</button>
+    <br/>
+    <embed id="gameFrame" src="about:blank" />
+    <script type="text/javascript">
+        function loadGame()
+        {
+            let embed = document.getElementById("gameFrame");
+            embed.src = "./Shooter.html"
+        }
+    </script>
 </body>
 </html>
