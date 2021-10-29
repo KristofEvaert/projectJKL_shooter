@@ -1,8 +1,8 @@
 echo exporting
-# Build game and export it to HTML
 cd Game
+# Build game and export it to HTML
 # requires to have godot mono installed
-godot --export "HTML5"
+godot --no-window --export "HTML5"
 cd ..
 # copies the exported game files
 cp -r Game/build build/
