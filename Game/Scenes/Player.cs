@@ -25,7 +25,8 @@ public class Player : KinematicBody2D
     {
         var velocityVec = GetDirectionVec() * Speed;
 
-        sprite.Rotation = velocityVec.Angle();
+        if(velocityVec != Vector2.Zero)
+            sprite.Rotation = velocityVec.Angle();
 
         this.MoveAndSlide(velocityVec);
 
