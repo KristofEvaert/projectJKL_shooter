@@ -37,8 +37,6 @@ public class Gun : Node2D
 
     private void Shoot()
     {
-        var speed = 100;
-
         var velocityVec = new Vector2(100, 0).Rotated(Rotation);
 
     }
