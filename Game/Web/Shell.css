@@ -1,2 +1,3 @@
-body {
+#canvas {
+    position: relative !important;
 }
