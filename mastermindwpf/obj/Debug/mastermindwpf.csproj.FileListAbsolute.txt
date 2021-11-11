@@ -1,0 +1,15 @@
+C:\Users\krist\projectJKL\mastermind\mastermindwpf\mastermindwpf\bin\Debug\mastermindwpf.exe.config
+C:\Users\krist\projectJKL\mastermind\mastermindwpf\mastermindwpf\bin\Debug\mastermindwpf.exe
+C:\Users\krist\projectJKL\mastermind\mastermindwpf\mastermindwpf\bin\Debug\mastermindwpf.pdb
+C:\Users\krist\projectJKL\mastermind\mastermindwpf\mastermindwpf\obj\Debug\mastermindwpf.csproj.AssemblyReference.cache
+C:\Users\krist\projectJKL\mastermind\mastermindwpf\mastermindwpf\obj\Debug\MainWindow.g.cs
+C:\Users\krist\projectJKL\mastermind\mastermindwpf\mastermindwpf\obj\Debug\App.g.cs
+C:\Users\krist\projectJKL\mastermind\mastermindwpf\mastermindwpf\obj\Debug\mastermindwpf_MarkupCompile.cache
+C:\Users\krist\projectJKL\mastermind\mastermindwpf\mastermindwpf\obj\Debug\mastermindwpf_MarkupCompile.lref
+C:\Users\krist\projectJKL\mastermind\mastermindwpf\mastermindwpf\obj\Debug\MainWindow.baml
+C:\Users\krist\projectJKL\mastermind\mastermindwpf\mastermindwpf\obj\Debug\mastermindwpf.g.resources
+C:\Users\krist\projectJKL\mastermind\mastermindwpf\mastermindwpf\obj\Debug\mastermindwpf.Properties.Resources.resources
+C:\Users\krist\projectJKL\mastermind\mastermindwpf\mastermindwpf\obj\Debug\mastermindwpf.csproj.GenerateResource.cache
+C:\Users\krist\projectJKL\mastermind\mastermindwpf\mastermindwpf\obj\Debug\mastermindwpf.csproj.CoreCompileInputs.cache
+C:\Users\krist\projectJKL\mastermind\mastermindwpf\mastermindwpf\obj\Debug\mastermindwpf.exe
+C:\Users\krist\projectJKL\mastermind\mastermindwpf\mastermindwpf\obj\Debug\mastermindwpf.pdb
