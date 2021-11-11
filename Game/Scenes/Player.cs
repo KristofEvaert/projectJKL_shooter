@@ -13,23 +13,92 @@ public class Player : KinematicBody2D
     public float Speed = 100f;
     private float rotation;
 
+    private Position2D pivot;
+    private float gunDistance;
+
+
+    private DateTime lastTimeShot = DateTime.MinValue;
+
+    [Export]
+    public float Cooldown = 200f;
+
+    Gun gun;
+
+    [Export]
+    public PackedScene BulletScene;
+
     private Sprite sprite;
     public override void _Ready()
     {
         GD.Print("hello world");
 
         sprite = GetNode<Sprite>("Sprite");
+        pivot = GetNode<Position2D>("Pivot");
+
+        gun = GetNode<Gun>("Gun");
+
+        gunDistance =  gun.Position.Length();
+
     }
     
     public override void _PhysicsProcess(float delta)
     {
         var velocityVec = GetDirectionVec() * Speed;
+        this.MoveGun();
 
         if(velocityVec != Vector2.Zero)
             sprite.Rotation = velocityVec.Angle();
+        
+        if(Input.IsActionPressed("shoot"))
+        {
+            this.Shoot();
+        }
+
 
         this.MoveAndSlide(velocityVec);
 
+    }
+
+    [Signal]
+    public delegate void PlayerShotSignal(Bullet bullet);
+
+
+    public void Shoot()
+    {
+        var now = DateTime.Now;
+        var timeSinceLastShot = now - lastTimeShot;
+
+        if(timeSinceLastShot.TotalMilliseconds < Cooldown)
+        {
+            GD.Print("wait!");
+            return;
+        }
+        lastTimeShot = now;
+        GD.Print("pew!");
+
+        var velocityVec = new Vector2(5, 0).Rotated(gun.Rotation);
+
+        //var bullet = new Bullet(gun.GlobalPosition, velocityVec);
+
+        var bullet = BulletScene.Instance<Bullet>();
+        bullet.Position = gun.GlobalPosition;
+        bullet.Velocity = velocityVec;
+
+        EmitSignal(nameof(PlayerShotSignal), bullet);
+
+    }
+
+    private void MoveGun()
+    {
+        var mousePos = this.GetViewport().GetMousePosition();
+        var relativePlayerPos = pivot.GetGlobalTransformWithCanvas();
+        var vec = relativePlayerPos.origin;
+
+        gun.Rotation = mousePos.AngleToPoint(vec);
+
+        var position = new Vector2(gunDistance, 0).Rotated(gun.Rotation);
+
+        gun.Position = position;
     }
 
     public static Vector2 GetDirectionVec()
