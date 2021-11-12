@@ -20,549 +20,209 @@ namespace mastermindwpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        Random code = new Random();
-        int een, twee, drie, vier, vijf, zes, zeven, acht;
+        //int een, twee, drie, vier, vijf, zes, zeven, acht;
+
+        int[] rij = new int[8];
+
+        int geselecteerdeKleur = -1;
+
+        Brush[] kleuren = new Brush[] { Brushes.Green, Brushes.Red, Brushes.Yellow, Brushes.BlueViolet, Brushes.Blue, Brushes.Purple, Brushes.Pink, Brushes.Aqua, };
+
+        Button[] knoppen;
+
+        Ellipse[] resultaatCirkels;
+        Ellipse[] invoerCirkels;
+
         public MainWindow()
         {
-
             InitializeComponent();
-            Is_Code_Berekening();
-            CodePlaatsen(een, codeeen);
-            CodePlaatsen(twee, codetwee);
-            CodePlaatsen(drie, codedrie);
-            CodePlaatsen(vier, codevier);
-            CodePlaatsen(vijf, codevijf);
-            CodePlaatsen(zes, codezes);
-            CodePlaatsen(zeven, codezeven);
-            CodePlaatsen(acht, codeacht);
+            //Is_Code_Berekening();
+            GenereerRandomArray();
 
+            resultaatCirkels = new Ellipse[]
+            {
+                codeeen,
+                codetwee,
+                codedrie,
+                codevier,
+                codevijf,
+                codezes,
+                codezeven,
+                codeacht,
+            };
 
+            invoerCirkels = new Ellipse[]
+            {
+                eeneen,
+                eentwee,
+                eendrie,
+                eenvier,
+                eenvijf,
+                eenzes,
+                eenzeven,
+                eenacht,
+            };
+
+            knoppen = new Button[]
+            {
+                groen,
+                rood,
+                geel,
+                lichtblauw,
+                blauw,
+                paars,
+                roze,
+                aqua,
+            };
         }
 
-
-
-
-        private void CodePlaatsen(int input, Ellipse fill)
+        private void GenereerRandomArray()
         {
-            switch (input)
+            Random random = new Random();
 
+            for(int i = 0; i < rij.Length; ++i)
             {
+                bool alreadyExists = true;
+                int number = 0;
+                while(alreadyExists)
+                {
+                    number = random.Next(rij.Length);
+                    alreadyExists = false;
+                    for(int j = 0; j < i; ++j)
+                    {
+                        if (rij[j] == number)
+                        {
+                            alreadyExists = true;
+                        }
+                    }
+                }
 
-                case 0:
-                    fill.Fill = Brushes.Green;
+                rij[i] = number;
+            }
+        }
 
-                    break;
-                case 1:
-                    fill.Fill = Brushes.Red;
-                    break;
-                case 2:
-                    fill.Fill = Brushes.Yellow;
-                    break;
-                case 3:
-                    fill.Fill = Brushes.BlueViolet;
-                    break;
-                case 4:
-                    fill.Fill = Brushes.Blue;
-                    break;
-                case 5:
-                    fill.Fill = Brushes.Purple;
-                    break;
-                case 6:
-                    fill.Fill = Brushes.Pink;
-                    break;
-                case 7:
-                    fill.Fill = Brushes.Aqua;
-                    break;
-                default:
-                    break;
+        private void SelectButton(int number)
+        {
+            if( geselecteerdeKleur == -1)
+            {
+                knoppen[number].Background = Brushes.White;
+                geselecteerdeKleur = number;
+            }
+            else if (geselecteerdeKleur == number)
+            {
+                knoppen[number].Background = kleuren[number];
+                geselecteerdeKleur = -1;
+            }
+            else
+            {
+                knoppen[geselecteerdeKleur].Background = kleuren[geselecteerdeKleur];
+                knoppen[number].Background = Brushes.White;
+                geselecteerdeKleur = number;
             }
         }
 
         private void Groen1(object sender, RoutedEventArgs e)
         {
-            groen.Background = Brushes.White;
-
+            SelectButton(0);
         }
 
 
         private void Rood2(object sender, RoutedEventArgs e)
         {
-            rood.Background = Brushes.White;
+            SelectButton(1);
         }
 
         private void Geel3(object sender, RoutedEventArgs e)
         {
-            geel.Background = Brushes.White;
+            SelectButton(2);
         }
 
         private void Lichtblauw4(object sender, RoutedEventArgs e)
         {
-            lichtblauw.Background = Brushes.White;
+            SelectButton(3);
         }
 
         private void Blauw5(object sender, RoutedEventArgs e)
         {
-            blauw.Background = Brushes.White;
+            SelectButton(4);
         }
 
         private void Paars6(object sender, RoutedEventArgs e)
         {
-            paars.Background = Brushes.White;
+            SelectButton(5);
         }
 
         private void Roze7(object sender, RoutedEventArgs e)
         {
-            roze.Background = Brushes.White;
+            SelectButton(6);
         }
 
         private void Aqua8(object sender, RoutedEventArgs e)
         {
-            aqua.Background = Brushes.White;
+            SelectButton(7);
         }
 
 
-        private void Is_Code_Berekening()
+        private void SelectEllipse(int number)
         {
-
-            Random code = new Random();
-
-            een = code.Next(8);
-
-            do
+            if(geselecteerdeKleur != -1)
             {
-                twee = code.Next(8);
-            } while (twee == een);
+                if (invoerCirkels[number].Fill == Brushes.White)
+                {
+                    invoerCirkels[number].Fill = kleuren[geselecteerdeKleur];
+                    int correctValue = rij[number];
 
-            do
-            {
-                drie = code.Next(8);
-            } while (drie == twee || drie == een);
+                    if (geselecteerdeKleur == correctValue)
+                    {
+                        resultaatCirkels[number].Fill = kleuren[correctValue];
+                        resultaatCirkels[number].Visibility = Visibility.Visible;
+                    }
 
-            do
-            {
-                vier = code.Next(8);
-            } while (vier == drie || vier == twee || vier == een);
-
-            do
-            {
-                vijf = code.Next(8);
-            } while (vijf == vier || vijf == drie || vijf == twee || vijf == een);
-
-            do
-            {
-                zes = code.Next(8);
-            } while (zes == vijf || zes == vier || zes == drie || zes == twee || zes == een);
-
-            do
-            {
-                zeven = code.Next(8);
-            } while (zeven == zes || zeven == vijf || zeven == vier || zeven == drie || zeven == twee || zeven == een);
-
-            do
-            {
-                acht = code.Next(8);
-            } while (acht == zeven || acht == zes || acht == vijf || acht == vier || acht == drie || acht == twee || acht == een);
-
-
-
-
+                    knoppen[geselecteerdeKleur].IsEnabled = false;
+                    geselecteerdeKleur = -1;
+                }
+            }
         }
+
 
         private void Rijeenceleen_Button_click(object sender, MouseButtonEventArgs e)
         {
-            
-            if (groen.Background == Brushes.White)
-            {
-                eeneen.Fill = Brushes.Green;
-                groen.Background = Brushes.Green;
-               
-            }
-            else if (rood.Background == Brushes.White)
-            {
-                eeneen.Fill = Brushes.Red;
-                rood.Background = Brushes.Red;
-            }
-            else if (geel.Background == Brushes.White)
-            {
-                eeneen.Fill = Brushes.Yellow;
-                geel.Background = Brushes.Yellow;
-            }
-            else if (lichtblauw.Background == Brushes.White)
-            {
-                eeneen.Fill = Brushes.BlueViolet;
-                lichtblauw.Background = Brushes.BlueViolet;
-            }
-            else if (blauw.Background == Brushes.White)
-            {
-                eeneen.Fill = Brushes.Blue;
-                blauw.Background = Brushes.Blue;
-            }
-            else if (paars.Background == Brushes.White)
-            {
-                eeneen.Fill = Brushes.Purple;
-                paars.Background = Brushes.Purple;
-            }
-            else if (roze.Background == Brushes.White)
-            {
-                eeneen.Fill = Brushes.Pink;
-                roze.Background = Brushes.Pink;
-            }
-            else if (aqua.Background == Brushes.White)
-            {
-                eeneen.Fill = Brushes.Aqua;
-                aqua.Background = Brushes.Aqua;
-            }
-            if (eeneen.Fill == codeeen.Fill)
-
-            {
-                codeeen.Visibility = Visibility.Visible;
-            }
-
+            SelectEllipse(0);
         }
-
-       
 
         private void RijeenCelTwee(object sender, MouseButtonEventArgs e)
         {
-            if (groen.Background == Brushes.White)
-            {
-                eentwee.Fill = Brushes.Green;
-                groen.Background = Brushes.Green;
-            }
-            else if (rood.Background == Brushes.White)
-            {
-                eentwee.Fill = Brushes.Red;
-                rood.Background = Brushes.Red;
-            }
-            else if (geel.Background == Brushes.White)
-            {
-                eentwee.Fill = Brushes.Yellow;
-                geel.Background = Brushes.Yellow;
-            }
-            else if (lichtblauw.Background == Brushes.White)
-            {
-                eentwee.Fill = Brushes.BlueViolet;
-                lichtblauw.Background = Brushes.BlueViolet;
-            }
-            else if (blauw.Background == Brushes.White)
-            {
-                eentwee.Fill = Brushes.Blue;
-                blauw.Background = Brushes.Blue;
-            }
-            else if (paars.Background == Brushes.White)
-            {
-                eentwee.Fill = Brushes.Purple;
-                paars.Background = Brushes.Purple;
-            }
-            else if (roze.Background == Brushes.White)
-            {
-                eentwee.Fill = Brushes.Pink;
-                roze.Background = Brushes.Pink;
-            }
-            else if (aqua.Background == Brushes.White)
-            {
-                eentwee.Fill = Brushes.Aqua;
-                aqua.Background = Brushes.Aqua;
-            }
-            if (eentwee.Fill == codetwee.Fill)
-            {
-                codetwee.Visibility = Visibility.Visible;
-            }
+            SelectEllipse(1);
         }
 
         private void RijEenCelDrie(object sender, MouseButtonEventArgs e)
         {
-            if (groen.Background == Brushes.White)
-            {
-                eendrie.Fill = Brushes.Green;
-                groen.Background = Brushes.Green;
-            }
-            else if (rood.Background == Brushes.White)
-            {
-                eendrie.Fill = Brushes.Red;
-                rood.Background = Brushes.Red;
-            }
-            else if (geel.Background == Brushes.White)
-            {
-                eendrie.Fill = Brushes.Yellow;
-                geel.Background = Brushes.Yellow;
-            }
-            else if (lichtblauw.Background == Brushes.White)
-            {
-                eendrie.Fill = Brushes.BlueViolet;
-                lichtblauw.Background = Brushes.BlueViolet;
-            }
-            else if (blauw.Background == Brushes.White)
-            {
-                eendrie.Fill = Brushes.Blue;
-                blauw.Background = Brushes.Blue;
-            }
-            else if (paars.Background == Brushes.White)
-            {
-                eendrie.Fill = Brushes.Purple;
-                paars.Background = Brushes.Purple;
-            }
-            else if (roze.Background == Brushes.White)
-            {
-                eendrie.Fill = Brushes.Pink;
-                roze.Background = Brushes.Pink;
-            }
-            else if (aqua.Background == Brushes.White)
-            {
-                eendrie.Fill = Brushes.Aqua;
-                aqua.Background = Brushes.Aqua;
-            }
-
-            if (eendrie.Fill == codedrie.Fill)
-            {
-                codedrie.Visibility = Visibility.Visible;
-            }
+            SelectEllipse(2);
         }
 
         private void RijEenCelVier(object sender, MouseButtonEventArgs e)
         {
-            if (groen.Background == Brushes.White)
-            {
-                eenvier.Fill = Brushes.Green;
-                groen.Background = Brushes.Green;
-            }
-            else if (rood.Background == Brushes.White)
-            {
-                eenvier.Fill = Brushes.Red;
-                rood.Background = Brushes.Red;
-            }
-            else if (geel.Background == Brushes.White)
-            {
-                eenvier.Fill = Brushes.Yellow;
-                geel.Background = Brushes.Yellow;
-            }
-            else if (lichtblauw.Background == Brushes.White)
-            {
-                eenvier.Fill = Brushes.BlueViolet;
-                lichtblauw.Background = Brushes.BlueViolet;
-            }
-            else if (blauw.Background == Brushes.White)
-            {
-                eenvier.Fill = Brushes.Blue;
-                blauw.Background = Brushes.Blue;
-            }
-            else if (paars.Background == Brushes.White)
-            {
-                
-                eenvier.Fill = Brushes.Purple;
-                paars.Background = Brushes.Purple;
-            }
-            else if (roze.Background == Brushes.White)
-            {
-                eenvier.Fill = Brushes.Pink;
-                roze.Background = Brushes.Pink;
-            }
-            else if (aqua.Background == Brushes.White)
-            {
-                eenvier.Fill = Brushes.Aqua;
-                aqua.Background = Brushes.Aqua;
-            }
-            if (eenvier.Fill == codevier.Fill)
-            {
-                codevier.Visibility = Visibility.Visible;
-            }
+            SelectEllipse(3);
         }
 
         private void RijEenCelVijf(object sender, MouseButtonEventArgs e)
         {
-            if (groen.Background == Brushes.White)
-            {
-                eenvijf.Fill = Brushes.Green;
-                groen.Background = Brushes.Green;
-            }
-            else if (rood.Background == Brushes.White)
-            {
-                eenvijf.Fill = Brushes.Red;
-                rood.Background = Brushes.Red;
-            }
-            else if (geel.Background == Brushes.White)
-            {
-                eenvijf.Fill = Brushes.Yellow;
-                geel.Background = Brushes.Yellow;
-            }
-            else if (lichtblauw.Background == Brushes.White)
-            {
-                eenvijf.Fill = Brushes.BlueViolet;
-                lichtblauw.Background = Brushes.BlueViolet;
-            }
-            else if (blauw.Background == Brushes.White)
-            {
-                eenvijf.Fill = Brushes.Blue;
-                blauw.Background = Brushes.Blue;
-            }
-            else if (paars.Background == Brushes.White)
-            {
-
-                eenvijf.Fill = Brushes.Purple;
-                paars.Background = Brushes.Purple;
-            }
-            else if (roze.Background == Brushes.White)
-            {
-                eenvijf.Fill = Brushes.Pink;
-                roze.Background = Brushes.Pink;
-            }
-            else if (aqua.Background == Brushes.White)
-            {
-                eenvijf.Fill = Brushes.Aqua;
-                aqua.Background = Brushes.Aqua;
-            }
-            if (eenvijf.Fill == codevijf.Fill)
-            {
-                codevijf.Visibility = Visibility.Visible;
-            }
+            SelectEllipse(4);
         }
 
         private void RijEenCelZes(object sender, MouseButtonEventArgs e)
         {
-            if (groen.Background == Brushes.White)
-            {
-                eenzes.Fill = Brushes.Green;
-                groen.Background = Brushes.Green;
-            }
-            else if (rood.Background == Brushes.White)
-            {
-                eenzes.Fill = Brushes.Red;
-                rood.Background = Brushes.Red;
-            }
-            else if (geel.Background == Brushes.White)
-            {
-                eenzes.Fill = Brushes.Yellow;
-                geel.Background = Brushes.Yellow;
-            }
-            else if (lichtblauw.Background == Brushes.White)
-            {
-                eenzes.Fill = Brushes.BlueViolet;
-                lichtblauw.Background = Brushes.BlueViolet;
-            }
-            else if (blauw.Background == Brushes.White)
-            {
-                eenzes.Fill = Brushes.Blue;
-                blauw.Background = Brushes.Blue;
-            }
-            else if (paars.Background == Brushes.White)
-            {
-
-                eenzes.Fill = Brushes.Purple;
-                paars.Background = Brushes.Purple;
-            }
-            else if (roze.Background == Brushes.White)
-            {
-                eenzes.Fill = Brushes.Pink;
-                roze.Background = Brushes.Pink;
-            }
-            else if (aqua.Background == Brushes.White)
-            {
-                eenzes.Fill = Brushes.Aqua;
-                aqua.Background = Brushes.Aqua;
-            }
-            if (eenzes.Fill == codezes.Fill)
-            {
-                codezes.Visibility = Visibility.Visible;
-            }
+            SelectEllipse(5);
         }
 
         private void RijEenCelZeven(object sender, MouseButtonEventArgs e)
         {
-            if (groen.Background == Brushes.White)
-            {
-                eenzeven.Fill = Brushes.Green;
-                groen.Background = Brushes.Green;
-            }
-            else if (rood.Background == Brushes.White)
-            {
-                eenzeven.Fill = Brushes.Red;
-                rood.Background = Brushes.Red;
-            }
-            else if (geel.Background == Brushes.White)
-            {
-                eenzeven.Fill = Brushes.Yellow;
-                geel.Background = Brushes.Yellow;
-            }
-            else if (lichtblauw.Background == Brushes.White)
-            {
-                eenzeven.Fill = Brushes.BlueViolet;
-                lichtblauw.Background = Brushes.BlueViolet;
-            }
-            else if (blauw.Background == Brushes.White)
-            {
-                eenzeven.Fill = Brushes.Blue;
-                blauw.Background = Brushes.Blue;
-            }
-            else if (paars.Background == Brushes.White)
-            {
-
-                eenzeven.Fill = Brushes.Purple;
-                paars.Background = Brushes.Purple;
-            }
-            else if (roze.Background == Brushes.White)
-            {
-                eenzeven.Fill = Brushes.Pink;
-                roze.Background = Brushes.Pink;
-            }
-            else if (aqua.Background == Brushes.White)
-            {
-                eenzeven.Fill = Brushes.Aqua;
-                aqua.Background = Brushes.Aqua;
-            }
-            if (eenzeven.Fill == codezeven.Fill)
-            {
-                codezeven.Visibility = Visibility.Visible;
-            }
+            SelectEllipse(6);
         }
 
         private void RijEenCelAcht(object sender, MouseButtonEventArgs e)
         {
-            if (groen.Background == Brushes.White)
-            {
-                eenacht.Fill = Brushes.Green;
-                groen.Background = Brushes.Green;
-            }
-            else if (rood.Background == Brushes.White)
-            {
-                eenacht.Fill = Brushes.Red;
-                rood.Background = Brushes.Red;
-            }
-            else if (geel.Background == Brushes.White)
-            {
-                eenacht.Fill = Brushes.Yellow;
-                geel.Background = Brushes.Yellow;
-            }
-            else if (lichtblauw.Background == Brushes.White)
-            {
-                eenacht.Fill = Brushes.BlueViolet;
-                lichtblauw.Background = Brushes.BlueViolet;
-            }
-            else if (blauw.Background == Brushes.White)
-            {
-                eenacht.Fill = Brushes.Blue;
-                blauw.Background = Brushes.Blue;
-            }
-            else if (paars.Background == Brushes.White)
-            {
-
-                eenacht.Fill = Brushes.Purple;
-                paars.Background = Brushes.Purple;
-            }
-            else if (roze.Background == Brushes.White)
-            {
-                eenacht.Fill = Brushes.Pink;
-                roze.Background = Brushes.Pink;
-            }
-            else if (aqua.Background == Brushes.White)
-            {
-                eenacht.Fill = Brushes.Aqua;
-                aqua.Background = Brushes.Aqua;
-            }
-            if (eenacht.Fill == codeacht.Fill)
-
-            {
-                codeacht.Visibility = Visibility.Visible;
-            }
+            SelectEllipse(7);
         }
     }
 }
