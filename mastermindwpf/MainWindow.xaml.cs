@@ -33,11 +33,15 @@ namespace mastermindwpf
         Ellipse[] resultaatCirkels;
         Ellipse[] invoerCirkels;
 
+        Ellipse[,] allEllipses;
+
         public MainWindow()
         {
             InitializeComponent();
             //Is_Code_Berekening();
             GenereerRandomArray();
+
+            allEllipses = GetAllEllipses();
 
             resultaatCirkels = new Ellipse[]
             {
@@ -53,14 +57,14 @@ namespace mastermindwpf
 
             invoerCirkels = new Ellipse[]
             {
-                eeneen,
-                eentwee,
-                eendrie,
-                eenvier,
-                eenvijf,
-                eenzes,
-                eenzeven,
-                eenacht,
+                allEllipses[0,0],
+                allEllipses[0,1],
+                allEllipses[0,2],
+                allEllipses[0,3],
+                allEllipses[0,4],
+                allEllipses[0,5],
+                allEllipses[0,6],
+                allEllipses[0,7],
             };
 
             knoppen = new Button[]
@@ -74,21 +78,58 @@ namespace mastermindwpf
                 roze,
                 aqua,
             };
+
+            GetAllEllipses();
+        }
+
+        private Ellipse[,] GetAllEllipses()
+        {
+            const int columnCount = 8;
+            const int rowCount = 10;
+            var ellipses = new Ellipse[rowCount, columnCount];
+            foreach (var child in MainGrid.Children)
+            {
+                var ellipse = child as Ellipse;
+                if (ellipse == null)
+                    continue;
+
+                //column 4 à 11
+                // row 15 à 6
+                const int firstColumn = 4;
+                const int lastColumn = 11;
+                const int firstRow = 6;
+                const int lastRow = 15;
+
+                var col = Grid.GetColumn(ellipse);
+                var row = Grid.GetRow(ellipse);
+
+                if (row >= firstRow && row <= lastRow && col >= firstColumn && col <= lastColumn)
+                {
+                    var r = row - firstRow;
+                    var c = col - firstColumn;
+
+                    var inverted = rowCount - 1 - r;
+
+                    ellipses[inverted, c] = ellipse;
+                }
+            }
+
+            return ellipses;
         }
 
         private void GenereerRandomArray()
         {
             Random random = new Random();
 
-            for(int i = 0; i < rij.Length; ++i)
+            for (int i = 0; i < rij.Length; ++i)
             {
                 bool alreadyExists = true;
                 int number = 0;
-                while(alreadyExists)
+                while (alreadyExists)
                 {
                     number = random.Next(rij.Length);
                     alreadyExists = false;
-                    for(int j = 0; j < i; ++j)
+                    for (int j = 0; j < i; ++j)
                     {
                         if (rij[j] == number)
                         {
@@ -103,7 +144,7 @@ namespace mastermindwpf
 
         private void SelectButton(int number)
         {
-            if( geselecteerdeKleur == -1)
+            if (geselecteerdeKleur == -1)
             {
                 knoppen[number].Background = Brushes.White;
                 geselecteerdeKleur = number;
@@ -165,7 +206,7 @@ namespace mastermindwpf
 
         private void SelectEllipse(int number)
         {
-            if(geselecteerdeKleur != -1)
+            if (geselecteerdeKleur != -1)
             {
                 if (invoerCirkels[number].Fill == Brushes.White)
                 {

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:mastermindwpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="2480" Width="1746">
-    <Grid Background="#FF7E522E" Cursor="Pen">
+    <Grid Name="MainGrid" Background="#FF7E522E" Cursor="Pen">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -133,14 +133,14 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Ellipse x:Name="eeneen" Grid.Column="4" HorizontalAlignment="Center" Grid.Row="15" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" MouseLeftButtonDown="Rijeenceleen_Button_click" Fill="White" />
-        <Ellipse x:Name="eentwee" Grid.Column="5" HorizontalAlignment="Center" Grid.Row="15" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" MouseLeftButtonDown="RijeenCelTwee" Fill="White"/>
-        <Ellipse x:Name="eendrie" Grid.Column="6" HorizontalAlignment="Center" Grid.Row="15" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" Fill="White" MouseLeftButtonDown="RijEenCelDrie"/>
-        <Ellipse x:Name="eenvier" Grid.Column="7" HorizontalAlignment="Center" Grid.Row="15" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" Fill="White" MouseLeftButtonDown="RijEenCelVier"/>
-        <Ellipse x:Name="eenvijf" Grid.Column="8" HorizontalAlignment="Center" Grid.Row="15" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" MouseLeftButtonDown="RijEenCelVijf" Fill="White"/>
-        <Ellipse x:Name="eenzes" Grid.Column="9" HorizontalAlignment="Center" Grid.Row="15" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" Fill="White" MouseLeftButtonDown="RijEenCelZes"/>
-        <Ellipse x:Name="eenzeven" Grid.Column="10" HorizontalAlignment="Center" Grid.Row="15" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" MouseLeftButtonDown="RijEenCelZeven" Fill="White"/>
-        <Ellipse x:Name="eenacht" Grid.Column="11" HorizontalAlignment="Center" Grid.Row="15" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" Fill="White" MouseLeftButtonDown="RijEenCelAcht"/>
+        <Ellipse Grid.Column="4" HorizontalAlignment="Center" Grid.Row="15" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" MouseLeftButtonDown="Rijeenceleen_Button_click" Fill="White" />
+        <Ellipse Grid.Column="5" HorizontalAlignment="Center" Grid.Row="15" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" MouseLeftButtonDown="RijeenCelTwee" Fill="White"/>
+        <Ellipse Grid.Column="6" HorizontalAlignment="Center" Grid.Row="15" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" Fill="White" MouseLeftButtonDown="RijEenCelDrie"/>
+        <Ellipse Grid.Column="7" HorizontalAlignment="Center" Grid.Row="15" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" Fill="White" MouseLeftButtonDown="RijEenCelVier"/>
+        <Ellipse Grid.Column="8" HorizontalAlignment="Center" Grid.Row="15" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" MouseLeftButtonDown="RijEenCelVijf" Fill="White"/>
+        <Ellipse Grid.Column="9" HorizontalAlignment="Center" Grid.Row="15" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" Fill="White" MouseLeftButtonDown="RijEenCelZes"/>
+        <Ellipse Grid.Column="10" HorizontalAlignment="Center" Grid.Row="15" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" MouseLeftButtonDown="RijEenCelZeven" Fill="White"/>
+        <Ellipse Grid.Column="11" HorizontalAlignment="Center" Grid.Row="15" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" Fill="White" MouseLeftButtonDown="RijEenCelAcht"/>
         <Ellipse Grid.Column="4" HorizontalAlignment="Center" Grid.Row="14" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30"/>
         <Ellipse Grid.Column="5" HorizontalAlignment="Center" Grid.Row="14" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30"/>
         <Ellipse Grid.Column="6" HorizontalAlignment="Center" Grid.Row="14" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30"/>
@@ -213,6 +213,7 @@
         <Ellipse Grid.Column="9" HorizontalAlignment="Center" Grid.Row="6" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30"/>
         <Ellipse Grid.Column="10" HorizontalAlignment="Center" Grid.Row="6" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30"/>
         <Ellipse Grid.Column="11" HorizontalAlignment="Center" Grid.Row="6" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30"/>
+
         <Ellipse x:Name="codeeen" Grid.Column="4" HorizontalAlignment="Center" Grid.Row="4" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" Fill="White" Visibility="Hidden"/>
         <Ellipse x:Name="codetwee" Grid.Column="5" HorizontalAlignment="Center" Grid.Row="4" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" Fill="White" Visibility="Hidden"/>
         <Ellipse x:Name="codedrie" Grid.Column="6" HorizontalAlignment="Center" Grid.Row="4" Stroke="Black" VerticalAlignment="Center" Width="30" Height="30" Fill="White" Visibility="Hidden"/>
