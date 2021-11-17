@@ -3,9 +3,9 @@ using System;
 
 public class Gun : Node2D
 {
-    public override void _Ready()
-    {
-    }
+	public override void _Ready()
+	{
+	}
 
 
 }
