@@ -8,3 +8,5 @@ script = ExtResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 215.521, 171.085 )
+
+[connection signal="PlayerShotSignal" from="Player" to="." method="_on_Player_PlayerShotSignal"]

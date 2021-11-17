@@ -16,6 +16,7 @@ public class MainScene : Node2D
 	public void _on_Player_PlayerShotSignal(Bullet bullet)
 	{
 		GD.Print(bullet);
+		GD.Print("shooting");
 		AddChild(bullet);
 		GD.Print(bullet.Position, bullet.Velocity);
 		bullet.Show();
