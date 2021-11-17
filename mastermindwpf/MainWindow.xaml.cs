@@ -31,14 +31,15 @@ namespace mastermindwpf
         Button[] knoppen;
 
         Ellipse[] resultaatCirkels;
-        Ellipse[] invoerCirkels;
+        Ellipse[] invoerCirkels = new Ellipse[8];
+
+        int huidigeRij = -1;
 
         Ellipse[,] allEllipses;
 
         public MainWindow()
         {
             InitializeComponent();
-            //Is_Code_Berekening();
             GenereerRandomArray();
 
             allEllipses = GetAllEllipses();
@@ -55,18 +56,6 @@ namespace mastermindwpf
                 codeacht,
             };
 
-            invoerCirkels = new Ellipse[]
-            {
-                allEllipses[0,0],
-                allEllipses[0,1],
-                allEllipses[0,2],
-                allEllipses[0,3],
-                allEllipses[0,4],
-                allEllipses[0,5],
-                allEllipses[0,6],
-                allEllipses[0,7],
-            };
-
             knoppen = new Button[]
             {
                 groen,
@@ -79,7 +68,52 @@ namespace mastermindwpf
                 aqua,
             };
 
+            // will fill the invoercirkels
+            GoToNextRow();
+
             GetAllEllipses();
+        }
+
+        private void GoToNextRow()
+        {
+
+            if (huidigeRij >= 9)
+            {
+                MessageBox.Show("you lost");
+                return;
+            }
+
+            if(huidigeRij >= 0)
+            {
+                for(int i = 0; i < 8; ++i)
+                {
+                    invoerCirkels[i].IsEnabled = false;
+                }
+            }
+
+            huidigeRij++;
+
+            for(int i = 0; i < 8; ++i)
+            {
+                knoppen[i].IsEnabled = true;
+                knoppen[i].Background = kleuren[i];
+                invoerCirkels[i] = allEllipses[huidigeRij, i];
+                invoerCirkels[i].Fill = Brushes.White;
+
+                var number = i;
+                invoerCirkels[i].MouseLeftButtonDown += delegate { SelectEllipse(number);  };
+            }
+            for(int i = 0; i < 8; ++i)
+            {
+                if (resultaatCirkels[i].Visibility == Visibility.Visible)
+                {
+                    var colorToDisable = rij[i];
+                    knoppen[colorToDisable].IsEnabled = false;
+                    invoerCirkels[i].Fill = Brushes.Transparent;
+                    invoerCirkels[i].IsEnabled = false;
+                }
+            }
+
         }
 
         private Ellipse[,] GetAllEllipses()
@@ -162,6 +196,7 @@ namespace mastermindwpf
             }
         }
 
+
         private void Groen1(object sender, RoutedEventArgs e)
         {
             SelectButton(0);
@@ -217,53 +252,44 @@ namespace mastermindwpf
                     {
                         resultaatCirkels[number].Fill = kleuren[correctValue];
                         resultaatCirkels[number].Visibility = Visibility.Visible;
+                        CheckIfWon();
                     }
 
                     knoppen[geselecteerdeKleur].IsEnabled = false;
                     geselecteerdeKleur = -1;
+
+                    CheckIfRowIsFilled();
                 }
             }
         }
 
-
-        private void Rijeenceleen_Button_click(object sender, MouseButtonEventArgs e)
+        private void CheckIfWon()
         {
-            SelectEllipse(0);
+            for(int i = 0; i < 8; ++i)
+            {
+                if(resultaatCirkels[i].Visibility == Visibility.Hidden)
+                {
+                    return;
+                }
+            }
+
+            MessageBox.Show("win");
         }
 
-        private void RijeenCelTwee(object sender, MouseButtonEventArgs e)
+        private void CheckIfRowIsFilled()
         {
-            SelectEllipse(1);
+            for (int i = 0; i < 8; ++i)
+            {
+                if (invoerCirkels[i].Fill == Brushes.White)
+                {
+                    return;
+                }
+            }
+
+            // if we arrive here it means no brushes were white
+            GoToNextRow();
+
         }
 
-        private void RijEenCelDrie(object sender, MouseButtonEventArgs e)
-        {
-            SelectEllipse(2);
-        }
-
-        private void RijEenCelVier(object sender, MouseButtonEventArgs e)
-        {
-            SelectEllipse(3);
-        }
-
-        private void RijEenCelVijf(object sender, MouseButtonEventArgs e)
-        {
-            SelectEllipse(4);
-        }
-
-        private void RijEenCelZes(object sender, MouseButtonEventArgs e)
-        {
-            SelectEllipse(5);
-        }
-
-        private void RijEenCelZeven(object sender, MouseButtonEventArgs e)
-        {
-            SelectEllipse(6);
-        }
-
-        private void RijEenCelAcht(object sender, MouseButtonEventArgs e)
-        {
-            SelectEllipse(7);
-        }
     }
 }
